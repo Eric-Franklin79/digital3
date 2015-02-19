@@ -3,17 +3,17 @@ window.onload = function() {
     "use strict";
     
     
-    var game = new Phaser.Game( 800, 600, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update, render:render  } );
+    var game = new Phaser.Game( 800, 600, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update} );
     
     function preload() {
        game.load.atlasJSONHash('target', 'assets/target.png', 'assets/target.json');
-       //game.load.image( 'target00', 'assets/target08.png' );
+       game.load.image( 'guy', 'assets/guy.png' );
        game.load.image( 'bullet', 'assets/bullet.png' );
        game.load.image( 'hole', 'assets/hole.png' );
        game.load.image( 'range', 'assets/range.png' );
     }
     
-   var target;
+   var target, dude;
    var counter = 0;
    var textS, textR, textC;
    var score = 0;
@@ -28,6 +28,7 @@ window.onload = function() {
     
    function create() {
    	   var background = game.add.tileSprite(0,0, 800, 600, 'range')
+   	   dude = game.add.sprite(0, 100, 'guy');
    	   target = game.add.sprite(500, 10, 'target', 'target01.png');
    	   target.anchor.setTo(0.5, 0);
    	   target.animations.add('forward', ['target02.png', 'target03.png', 'target04.png', 'target05.png', 'target06.png', 'target07.png', 'target08.png', 'target09.png', 'target10.png', 'target11.png', 'target00.png'], 20);
@@ -56,11 +57,15 @@ window.onload = function() {
     	if(game.input.mousePointer.justPressed(20) && counter < 10){
     		if(!targetAtCounter){
     			if(!(!clean && counter === 0)){
-    				holes[counter].reset(game.input.mousePointer.x-8, game.input.mousePointer.y-8);
-				bullets[((bullets.length)- 1 - counter)].kill();
-				counter++;
-				reloaded = false;
-				clean = false;
+    				if(game.input.mousePointer.x > 470 && game.input.mousePointer.x < 540 && game.input.mousePointer.y > 20 && game.input.mousePointer.y < 170){
+					holes[counter].reset(game.input.mousePointer.x-8, game.input.mousePointer.y-8);
+					bullets[((bullets.length)- 1 - counter)].kill();
+					counter++;
+					reloaded = false;
+					clean = false;
+					score += 10;
+					textS.setText("Score: " + String(score));
+				}
 			}
     		}
     	}
@@ -81,7 +86,7 @@ window.onload = function() {
     			
     		}
     	}
-    	if(targetUp.downDuration(50)){
+    	/*if(targetUp.downDuration(50)){
     		if(targetAtCounter){
     			target.animations.play('back');
     			targetAtCounter= false;
@@ -95,7 +100,7 @@ window.onload = function() {
     			}
     			targetAtCounter= true;
     		}
-    	}
+    	}*/
     }
     function updateTimer(){
     	 
@@ -108,8 +113,5 @@ window.onload = function() {
     }
     function startGame() {
     	
-    }
-    function render(){
-    	game.debug.inputInfo(32, 32);
     }
 };
