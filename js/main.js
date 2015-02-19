@@ -72,6 +72,8 @@ window.onload = function() {
 				}
 				else{
 					score -= 25;
+					textS.setText("Score: " + String(score));
+
 				}
 			}
     		}
