@@ -62,8 +62,8 @@ window.onload = function() {
     	if(game.input.mousePointer.justPressed(20) && counter < 10){
     		if(!targetAtCounter){
     			if(!(!clean && counter === 0)){
-	 			if((game.input.mousePointer.x > 95 && game.input.mousePointer.x < 109 && game.input.mousePointer.y > 255 && game.input.mousePointer.y < 275)
-	 				|| (game.input.mousePointer.x > 98 && game.input.mousePointer.x < 107 && game.input.mousePointer.y > 82 && game.input.mousePointer.y < 97)){
+	 			if((game.input.mousePointer.x > 496 && game.input.mousePointer.x < 502 && game.input.mousePointer.y > 106 && game.input.mousePointer.y < 113)
+	 				|| (game.input.mousePointer.x > 497 && game.input.mousePointer.x < 501 && game.input.mousePointer.y > 40 && game.input.mousePointer.y < 44)){
 	 				holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
 					bullets[((bullets.length)- 1 - counter)].kill();
 					counter++;
@@ -76,14 +76,14 @@ window.onload = function() {
 					}
 					textS.setText("Score: " + String(score));
     				}	
-    				else if((game.input.mousePointer.x > 70 && game.input.mousePointer.x < 135 && game.input.mousePointer.y > 224 && game.input.mousePointer.y < 305)
-	 				|| (game.input.mousePointer.x > 85 && game.input.mousePointer.x < 120 && game.input.mousePointer.y > 65 && game.input.mousePointer.y < 108)){
+    				else if((game.input.mousePointer.x > 488 && game.input.mousePointer.x < 514 && game.input.mousePointer.y > 94 && game.input.mousePointer.y < 122)
+	 				|| (game.input.mousePointer.x > 493 && game.input.mousePointer.x < 505 && game.input.mousePointer.y > 34 && game.input.mousePointer.y < 48)){
     					holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
 					bullets[((bullets.length)- 1 - counter)].kill();
 					counter++;
 					reloaded = false;
 					clean = false;
-					score += 50;
+					score += 25;
 					if(score > highScore){
 						highScore = score;
 						textH.setText("High Score: " + String(highScore));
@@ -96,7 +96,7 @@ window.onload = function() {
 					counter++;
 					reloaded = false;
 					clean = false;
-					score += 25;
+					score += 10;
 					if(score > highScore){
 						highScore = score;
 						textH.setText("High Score: " + String(highScore));
@@ -104,6 +104,11 @@ window.onload = function() {
 					textS.setText("Score: " + String(score));
 				}
 				else{
+					holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
+					bullets[((bullets.length)- 1 - counter)].kill();
+					counter++;
+					reloaded = false;
+					clean = false
 					score -= 25;
 					textS.setText("Score: " + String(score));
 
@@ -146,5 +151,7 @@ window.onload = function() {
     			targetAtCounter= true;
     		}
     	}*/
+    	
     }
+    
 };
