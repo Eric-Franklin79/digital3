@@ -62,7 +62,7 @@ window.onload = function() {
     		if(!targetAtCounter){
     			if(!(!clean && counter === 0)){
     				if(game.input.mousePointer.x > 470 && game.input.mousePointer.x < 540 && game.input.mousePointer.y > 20 && game.input.mousePointer.y < 170){
-					holes[counter].reset(game.input.mousePointer.x-8, game.input.mousePointer.y-8);
+					holes[counter].reset(game.input.mousePointer.x, game.input.mousePointer.y);
 					bullets[((bullets.length)- 1 - counter)].kill();
 					counter++;
 					reloaded = false;
