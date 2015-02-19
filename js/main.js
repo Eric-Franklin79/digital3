@@ -15,8 +15,8 @@ window.onload = function() {
     
    var target, dude;
    var counter = 0;
-   var textS, textR, textC;
-   var score = 0;
+   var textS, textR, textC, textH;
+   var score = 0, highScore =0;
    var reload, targetUp, targetDown, newTarget;
    var reloaded = true;
    var targetAtCounter = false;
@@ -46,6 +46,7 @@ window.onload = function() {
    	    var styleT = { font: "bold 15px Verdana", fill: "#FFFFFF", align: "center" };
    	    var styleC = { font: "bold 10px Verdana", fill: "#FFFFFF", align: "center" };
     	    textS = game.add.text(709, 75, "Score: " + String(score), styleT);
+    	    textH = game.add.text(709, 50, "High Score: " + String(highScore), styleC);
     	    textR = game.add.text(709, 100, "R - Reload Gun", styleC);
     	    textC = game.add.text(709, 110, "E - New Target", styleC);
    	   //map keys
@@ -61,13 +62,45 @@ window.onload = function() {
     	if(game.input.mousePointer.justPressed(20) && counter < 10){
     		if(!targetAtCounter){
     			if(!(!clean && counter === 0)){
-    				if(game.input.mousePointer.x > 470 && game.input.mousePointer.x < 540 && game.input.mousePointer.y > 20 && game.input.mousePointer.y < 170){
+	 			if((game.input.mousePointer.x > 95 && game.input.mousePointer.x < 109 && game.input.mousePointer.y > 255 && game.input.mousePointer.y < 275)
+	 				|| (game.input.mousePointer.x > 98 && game.input.mousePointer.x < 107 && game.input.mousePointer.y > 82 && game.input.mousePointer.y < 97)){
+	 				holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
+					bullets[((bullets.length)- 1 - counter)].kill();
+					counter++;
+					reloaded = false;
+					clean = false;
+					score += 50;
+					if(score > highScore){
+						highScore = score;
+						textH.setText("High Score: " + String(highScore));
+					}
+					textS.setText("Score: " + String(score));
+    				}	
+    				else if((game.input.mousePointer.x > 70 && game.input.mousePointer.x < 135 && game.input.mousePointer.y > 224 && game.input.mousePointer.y < 305)
+	 				|| (game.input.mousePointer.x > 85 && game.input.mousePointer.x < 120 && game.input.mousePointer.y > 65 && game.input.mousePointer.y < 108)){
+    					holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
+					bullets[((bullets.length)- 1 - counter)].kill();
+					counter++;
+					reloaded = false;
+					clean = false;
+					score += 50;
+					if(score > highScore){
+						highScore = score;
+						textH.setText("High Score: " + String(highScore));
+					}
+					textS.setText("Score: " + String(score));
+    				}
+    				else if(game.input.mousePointer.x > 470 && game.input.mousePointer.x < 540 && game.input.mousePointer.y > 20 && game.input.mousePointer.y < 170){
 					holes[counter].reset(game.input.mousePointer.x-3, game.input.mousePointer.y-3);
 					bullets[((bullets.length)- 1 - counter)].kill();
 					counter++;
 					reloaded = false;
 					clean = false;
-					score += 10;
+					score += 25;
+					if(score > highScore){
+						highScore = score;
+						textH.setText("High Score: " + String(highScore));
+					}
 					textS.setText("Score: " + String(score));
 				}
 				else{
@@ -84,6 +117,7 @@ window.onload = function() {
     			holes[i].kill();
    	   	}
    	   	clean = true;
+   	   	score =0;
     	}
     	//if R is pressed then reload the gun
     	if(reload.downDuration(50)){
