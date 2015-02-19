@@ -33,19 +33,22 @@ window.onload = function() {
    	   target.anchor.setTo(0.5, 0);
    	   target.animations.add('forward', ['target02.png', 'target03.png', 'target04.png', 'target05.png', 'target06.png', 'target07.png', 'target08.png', 'target09.png', 'target10.png', 'target11.png', 'target00.png'], 20);
    	   target.animations.add('back', ['target11.png', 'target10.png', 'target09.png', 'target08.png', 'target07.png', 'target06.png', 'target05.png', 'target04.png', 'target03.png', 'target02.png', 'target01.png'], 20);
+   	   // create all of the bullets
    	   for(var i =0; i <10; i++){
    	   	   bullets[i] = game.add.sprite(719, (379 - (16*i)), 'bullet');
    	   }
+   	   //create all of the holes
    	   for(var i =0; i <10; i++){
    	   	   holes[i] = game.add.sprite(500, (10), 'hole');
    	   	   holes[i].kill();
    	   }
+   	   //set up text
    	    var styleT = { font: "bold 15px Verdana", fill: "#FFFFFF", align: "center" };
    	    var styleC = { font: "bold 10px Verdana", fill: "#FFFFFF", align: "center" };
     	    textS = game.add.text(709, 75, "Score: " + String(score), styleT);
     	    textR = game.add.text(709, 100, "R - Reload Gun", styleC);
     	    textC = game.add.text(709, 110, "E - New Target", styleC);
-   	   
+   	   //map keys
    	   reload = game.input.keyboard.addKey(Phaser.Keyboard.R);
    	   targetUp = game.input.keyboard.addKey(Phaser.Keyboard.UP);
    	   targetDown = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -54,6 +57,7 @@ window.onload = function() {
    }
     
     function update() {
+    	//click to 'shoot' the gun, if the gun is aimed on the target shoot and gain points, else loose points
     	if(game.input.mousePointer.justPressed(20) && counter < 10){
     		if(!targetAtCounter){
     			if(!(!clean && counter === 0)){
@@ -66,18 +70,22 @@ window.onload = function() {
 					score += 10;
 					textS.setText("Score: " + String(score));
 				}
+				else{
+					score -= 25;
+				}
 			}
     		}
     	}
+    	//if E is pressed then clear the holes of the target
     	if(newTarget.downDuration(50)){
     		for(var i =0; i <10; i++){
     			holes[i].kill();
    	   	}
    	   	clean = true;
     	}
+    	//if R is pressed then reload the gun
     	if(reload.downDuration(50)){
     		if(!reloaded){
-    			//target.animations.play('forward');
     			counter = 0;
     			for(var i =0; i <10; i++){
     				bullets[i].revive();
@@ -86,6 +94,7 @@ window.onload = function() {
     			
     		}
     	}
+    	//To move the target forward and backwards
     	/*if(targetUp.downDuration(50)){
     		if(targetAtCounter){
     			target.animations.play('back');
@@ -101,17 +110,5 @@ window.onload = function() {
     			targetAtCounter= true;
     		}
     	}*/
-    }
-    function updateTimer(){
-    	 
-    }
-    function gameover(){
-    	    
-    }
-    function win(){
-	
-    }
-    function startGame() {
-    	
     }
 };
